@@ -6,9 +6,9 @@ Code source PFE - Detect & Alert
 
 ## Equipe
 
-Camille ZORDAN, Marine POUTET, Arthur DE WITZ, Pierre LOPEZ, Juliette FRATAGGLIA
+Camille ZORDAN, Marine POUTET, Arthur DE WITT, Pierre LOPEZ, Juliette FRATTAGLIA
 
 ## Mise à jour
 
-06/11/2018 - 12:26
+05/12/2018 - 00:23
 
