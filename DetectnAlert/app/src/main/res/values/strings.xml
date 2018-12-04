@@ -19,4 +19,13 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Strings related to Nav Bar Header -->
+    <string name="nav_header_name">Camille Zordan</string>
+    <string name="nav_header_function">Aide Soignante</string>
+
+    <!-- Strings related to Nav Bar -->
+    <string name="historique_alertes">Historique des alertes</string>
+    <string name="moncompte">Mon Compte</string>
+    <string name="logout">Déconnexion</string>
 </resources>
