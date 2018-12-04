@@ -8,11 +8,16 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+    <!-- Includes the app_bar_main layout to handle the normal content
+         (without the drawer) -->
     <include
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <!-- Handles the drawer itself
+         app:menu         the layout that handles the menu inside the drawer
+         app:headerLayout the layout that handles the header above the drawer -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
