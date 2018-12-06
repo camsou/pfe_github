@@ -27,7 +27,7 @@
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NouveauCompte"></activity>
+        <activity android:name=".NewAccountActivity"></activity>
     </application>
 
 </manifest>
