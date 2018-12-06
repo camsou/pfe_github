@@ -67,7 +67,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Créer un compte"
+                android:text="@string/new_account"
                 android:textStyle="bold"/>
 
             <Button
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Se connecter "
+                android:text="@string/connexion"
                 android:textStyle="bold" />
 
         </LinearLayout>

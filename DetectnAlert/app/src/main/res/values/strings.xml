@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Detect\'nAlert</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_email">Adresse email</string>
+    <string name="prompt_password">Mot de passe</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -19,6 +19,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="new_account">Créer un nouveau compte</string>
 
     <!-- Strings related to Nav Bar Header -->
     <string name="nav_header_name">Camille Zordan</string>
@@ -28,4 +29,12 @@
     <string name="historique_alertes">Historique des alertes</string>
     <string name="moncompte">Mon Compte</string>
     <string name="logout">Déconnexion</string>
+
+    <!-- Strings related to new account -->
+    <string name="nom">Nom</string>
+    <string name="prenom">Prénom</string>
+    <string name="id">Identifiant</string>
+    <string name="mdp">Mot de passe</string>
+    <string name="mdpbis">Confirmation du mot de passe</string>
+    <string name="connexion">Se connecter</string>
 </resources>

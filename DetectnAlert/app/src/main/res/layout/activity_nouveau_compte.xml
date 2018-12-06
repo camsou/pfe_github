@@ -15,63 +15,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Nom"
-        android:hint="Nom"
+        android:hint="@string/nom"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        ></EditText>
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Prénom"
-        android:hint="Prénom"
+        android:hint="@string/prenom"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        ></EditText>
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Identifiant"
-        android:hint="Identifiant"
+        android:hint="@string/id"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        ></EditText>
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/MotDePasse"
-        android:hint="Mot de passe"
+        android:hint="@string/mdp"
         android:inputType="textPassword"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        ></EditText>
+        />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ConfimationMotDePasse"
-        android:hint="Confirmation mot de passe"
+        android:hint="@string/mdpbis"
         android:inputType="textPassword"
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        ></EditText>
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/SeConnecter"
         android:layout_gravity="center_horizontal"
-        android:text="Se connecter"
-
-
+        android:text="@string/connexion"
         />
+
 </LinearLayout>
 
 
