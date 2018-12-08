@@ -37,4 +37,5 @@
     <string name="mdp">Mot de passe</string>
     <string name="mdpbis">Confirmation du mot de passe</string>
     <string name="connexion">Se connecter</string>
+    <string name="nouveaucompte">Créer un nouveau compte</string>
 </resources>
