@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
     private Button mEmailSignInButton;
+    private Button mNewAccountButton;
 
     /* Creation de la page */
     @Override
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        mNewAccountButton = (Button) findViewById(R.id.new_account_button);
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
@@ -85,12 +87,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mEmailSignInButton.setEnabled(s.toString().length() != 0);
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                mEmailSignInButton.setEnabled(s.toString().length() != 0);
 
             }
         });
@@ -106,6 +108,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
+        //Action bouton connexion
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +116,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 attemptLogin();
                 Intent mainActivityIntent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(mainActivityIntent);
+            }
+        });
+
+        //Action bouton nouveau compte
+        mNewAccountButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // User clicked the button
+                Intent NewAccountIntent = new Intent(LoginActivity.this, NewAccountActivity.class);
+                startActivity(NewAccountIntent);
             }
         });
 
