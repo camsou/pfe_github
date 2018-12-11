@@ -79,7 +79,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setEnabled(false);
 
         // Set up the login form.
-        mEmailView.addTextChangedListener(new TextWatcher() {
+
+        mPasswordView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -87,13 +88,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mEmailSignInButton.setEnabled(s.toString().length() != 0);
-
+                mEmailSignInButton.setEnabled(s.toString().length() != 6);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
