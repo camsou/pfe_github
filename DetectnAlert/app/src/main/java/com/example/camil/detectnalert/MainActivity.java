@@ -1,6 +1,7 @@
 package com.example.camil.detectnalert;
 
 import android.app.ActivityManager;
+import android.content.ClipData;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,8 +30,6 @@ import java.security.cert.Extension;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +139,8 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
 
 }
