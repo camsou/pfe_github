@@ -39,4 +39,5 @@
     <string name="connexion">Se connecter</string>
     <string name="nouveaucompte">Créer un nouveau compte</string>
 
+    <string name="token">Générer un token</string>
 </resources>

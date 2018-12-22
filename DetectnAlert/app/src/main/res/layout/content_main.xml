@@ -8,4 +8,13 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <Button
+        android:id="@+id/logTokenButton"
+        style="?android:textAppearanceSmall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/token"
+        android:textStyle="bold" />
+
 </android.support.constraint.ConstraintLayout>
