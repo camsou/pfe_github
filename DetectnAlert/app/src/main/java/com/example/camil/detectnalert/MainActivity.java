@@ -2,6 +2,7 @@ package com.example.camil.detectnalert;
 
 import android.app.ActivityManager;
 import android.content.ClipData;
+import android.content.Intent;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -128,10 +129,13 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_account)
         {
-
+            Intent TestActivityIntent = new Intent(MainActivity.this, MyAccountActivity.class);
+            startActivity(TestActivityIntent);
         }
         else if (id == R.id.nav_logout)
         {
+            Intent TestActivityIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(TestActivityIntent);
 
         }
 

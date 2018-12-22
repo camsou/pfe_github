@@ -22,8 +22,8 @@
     <string name="new_account">Créer un nouveau compte</string>
 
     <!-- Strings related to Nav Bar Header -->
-    <string name="nav_header_name">Camille Zordan</string>
-    <string name="nav_header_function">Aide Soignante</string>
+    <string name="nav_header_name">Arthur de Witt</string>
+    <string name="nav_header_function">Aide Soignant</string>
 
     <!-- Strings related to Nav Bar -->
     <string name="historique_alertes">Historique des alertes</string>
