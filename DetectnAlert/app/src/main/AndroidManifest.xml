@@ -29,10 +29,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NewAccountActivity"
-            android:label="NewAccountActivity" />
+            android:label="NewAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyAccountActivity"
-            android:label="MyAccountActivity" />
+            android:label="MyAccountActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
