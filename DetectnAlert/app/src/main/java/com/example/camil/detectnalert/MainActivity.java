@@ -32,6 +32,9 @@ import java.security.cert.Extension;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Button mNewAlertButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+        drawer.setDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -95,6 +98,22 @@ public class MainActivity extends AppCompatActivity
                     });
                 }
             });
+        }
+
+        mNewAlertButton = (Button) findViewById(R.id.newAlertButton);
+
+        if (mNewAlertButton != null) {
+            mNewAlertButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent NewAlertIntent = new Intent(MainActivity.this, AlertActivity.class);
+                    startActivity(NewAlertIntent);
+                }
+            });
+        }
+        else
+        {
+            Log.d("tag", "button null");
         }
     }
 
@@ -142,7 +161,8 @@ public class MainActivity extends AppCompatActivity
          */
         if (id == R.id.nav_historique_alertes)
         {
-
+            Intent TestActivityIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(TestActivityIntent);
         }
         else if (id == R.id.nav_account)
         {

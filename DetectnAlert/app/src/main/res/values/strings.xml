@@ -40,4 +40,6 @@
     <string name="nouveaucompte">Créer un nouveau compte</string>
 
     <string name="token">Générer un token</string>
+    <string name="title_activity_alert">AlertActivity</string>
+    <string name="title_activity_historic">HistoricActivity</string>
 </resources>

@@ -35,6 +35,14 @@
             android:name=".MyAccountActivity"
             android:label="MyAccountActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AlertActivity"
+            android:label="@string/title_activity_alert"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HistoricActivity"
+            android:label="@string/title_activity_historic"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
