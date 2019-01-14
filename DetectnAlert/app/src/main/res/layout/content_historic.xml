@@ -38,8 +38,9 @@
                 android:id="@+id/compterendu"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                android:inputType="text"
-                android:hint="Entrez un compte rendu" />
+                android:inputType="textMultiLine"
+                android:hint="Entrer un compte rendu" />
+
 
         </LinearLayout>
 

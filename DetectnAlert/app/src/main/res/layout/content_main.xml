@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:textSize="21sp"
+            android:textSize="25sp"
             android:text="Historique des alertes :" />
 
         <Button
