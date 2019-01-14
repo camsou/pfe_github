@@ -43,6 +43,7 @@
 
     <!-- Strings related to Nav Bar -->
     <string name="historique_alertes">Historique des alertes</string>
+    <string name="weights">Statistiques patients</string>
     <string name="moncompte">Mon Compte</string>
     <string name="logout">Déconnexion</string>
 
@@ -58,4 +59,5 @@
     <string name="token">Générer un token</string>
     <string name="title_activity_alert">AlertActivity</string>
     <string name="title_activity_historic">HistoricActivity</string>
+    <string name="title_activity_weights">WeightsActivity</string>
 </resources>

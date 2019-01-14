@@ -60,7 +60,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <activity android:name=".WeightActivity"></activity>
+        <activity
+            android:name=".WeightActivity"
+            android:label="@string/title_activity_weights"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

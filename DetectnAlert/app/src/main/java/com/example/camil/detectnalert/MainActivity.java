@@ -283,6 +283,11 @@ public class MainActivity extends BaseActivity
             Intent TestActivityIntent = new Intent(MainActivity.this, MainActivity.class);
             startActivity(TestActivityIntent);
         }
+        else if (id == R.id.nav_weights)
+        {
+            Intent TestActivityIntent = new Intent(MainActivity.this, WeightActivity.class);
+            startActivity(TestActivityIntent);
+        }
         else if (id == R.id.nav_account)
         {
             Intent TestActivityIntent = new Intent(MainActivity.this, MyAccountActivity.class);
