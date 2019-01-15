@@ -25,7 +25,6 @@
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="25sp"/>
-
         </LinearLayout>
 
         <LinearLayout
@@ -33,15 +32,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp">
 
-
             <EditText
                 android:id="@+id/compterendu"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:inputType="textMultiLine"
                 android:hint="Entrer un compte rendu" />
-
-
         </LinearLayout>
 
         <LinearLayout
