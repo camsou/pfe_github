@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,10 +49,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.new_account_button).setOnClickListener(this);
         findViewById(R.id.sign_out_button).setOnClickListener(this);
 
+
         // [START initialize_auth]
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
 
     }
 
@@ -191,10 +194,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.new_account_button) {
-            createAccount(mEmailView.getText().toString(), mPasswordView.getText().toString());
+            Intent HistoricIntent = new Intent(LoginActivity.this, NewAccountActivity.class);
+            startActivity(HistoricIntent);
+            //createAccount(mEmailView.getText().toString(), mPasswordView.getText().toString());
         } else if (i == R.id.email_sign_in_button) {
-            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());
-        } else if (i == R.id.sign_out_button) {
+            signIn(mEmailView.getText().toString(), mPasswordView.getText().toString());}
+        else if (i == R.id.sign_out_button) {
             signOut();
         }
     }

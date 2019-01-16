@@ -11,7 +11,7 @@
     android:paddingRight="16dp"
     android:paddingBottom="16dp">
 
-    <EditText
+    <!--<EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Nom"
@@ -29,7 +29,7 @@
         android:layout_margin="5dp"
         android:layout_weight="1"
         android:textSize="15sp"
-        />
+        /> -->
 
     <EditText
         android:layout_width="match_parent"
@@ -40,6 +40,7 @@
         android:layout_weight="1"
         android:textSize="15sp"
         />
+
 
     <EditText
         android:layout_width="match_parent"
@@ -52,16 +53,25 @@
         android:textSize="15sp"
         />
 
-    <EditText
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/ConfimationMotDePasse"
-        android:hint="@string/mdpbis"
-        android:inputType="textPassword"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:textSize="15sp"
-        />
+        android:text="@string/emailpassword_title_text"/>
+
+    <TextView
+        android:id="@+id/detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Firebase User ID: 123456789abc" />
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signed_out" />
+
 
     <Button
         android:id="@+id/CreateNewAccount"
