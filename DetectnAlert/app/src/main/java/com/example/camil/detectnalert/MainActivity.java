@@ -38,8 +38,20 @@ public class MainActivity extends BaseActivity
 
     private static final String TAG = "MainActivity";
 
+    /**
+     * Header information.
+     *
+     * mStatusTextView username
+     * mDetailTextView profession
+     *
+     * navigationView  the variable getting the header layout view.
+     * hview           the variable getting the header view.
+     */
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    private NavigationView navigationView;
+    private View           hView;
+
     private Button mNewAlertButton;
 
     // [START declare_auth]
@@ -52,10 +64,6 @@ public class MainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //View
-        mStatusTextView = findViewById(R.id.email);
-        mDetailTextView = findViewById(R.id.user);
 
         // [START initialize_auth]
         // Initialize Firebase Auth
@@ -158,8 +166,16 @@ public class MainActivity extends BaseActivity
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-                    user.getEmail(), user.isEmailVerified()));
+            // Get the header view
+            navigationView  = (NavigationView) findViewById(R.id.nav_view);
+            hView           = navigationView.getHeaderView(0);
+
+            // Getting the information inside the header
+            mStatusTextView = (TextView) hView.findViewById(R.id.email);
+            mDetailTextView = (TextView) hView.findViewById(R.id.user);
+
+            // Set information
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail(), user.isEmailVerified()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
         } else {
