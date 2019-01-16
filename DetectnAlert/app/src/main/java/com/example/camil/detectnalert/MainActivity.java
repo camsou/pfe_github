@@ -20,26 +20,66 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.security.cert.Extension;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
+    private TextView mStatusTextView;
+    private TextView mDetailTextView;
     private Button mNewAlertButton;
 
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
+
+    /* Creation de la page */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //View
+        mStatusTextView = findViewById(R.id.email);
+        mDetailTextView = findViewById(R.id.user);
+
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
     }
+
+    // [START on_start_check_user]
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+    }
+    // [END on_start_check_user]
+
+    private void signOut() {
+        mAuth.signOut();
+        updateUI(null);
+        Intent SignOutIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(SignOutIntent);
+    }
+
 
     @Override
     public void setContentView(@LayoutRes int layoutResID)
@@ -72,7 +112,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         Button logTokenButton = findViewById(R.id.logTokenButton);
 
@@ -114,6 +153,18 @@ public class MainActivity extends AppCompatActivity
         else
         {
             Log.d("tag", "button null");
+        }
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
+                    user.getEmail(), user.isEmailVerified()));
+            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+
+        } else {
+            mStatusTextView.setText(R.string.signed_out);
+            mDetailTextView.setText(null);
         }
     }
 
@@ -171,8 +222,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_logout)
         {
-            Intent TestActivityIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(TestActivityIntent);
+            //Intent TestActivityIntent = new Intent(MainActivity.this, LoginActivity.class);
+            //startActivity(TestActivityIntent);
+            signOut();
 
         }
 
