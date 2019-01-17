@@ -60,4 +60,5 @@
     <string name="title_activity_alert">AlertActivity</string>
     <string name="title_activity_historic">HistoricActivity</string>
     <string name="title_activity_weights">WeightsActivity</string>
+    <string name="statistiques_patients">Statistiques patients</string>
 </resources>
