@@ -1,26 +1,26 @@
 package com.example.camil.detectnalert;
 
-public class Clients {
+public class Patients {
 
     public int id;
     public String name;
-    public String surname;
+    public String first_name;
     public int birth_date;
     public Character sex;
 
-    public Clients()
+    public Patients()
     {
         //Constructeur
     }
 
-    public Clients(int id, String name, String surname, int birth_date, Character sex){
+    public Patients(int id, String name, String first_name, int birth_date, Character sex){
         this.id= id;
         this.name = name;
-        this.surname = surname;
+        this.first_name = first_name;
         this.birth_date = birth_date;
         this.sex = sex;
     }
-    public String GetClientName() {
+    public String GetPatientName() {
         return name;
     }
 
