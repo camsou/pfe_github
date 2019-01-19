@@ -33,21 +33,21 @@ public class WeightActivity extends MainActivity  {
         db=FirebaseDatabase.getInstance().getReference();
         helper=new FirebaseHelper(db);
 
-        db.child("clients").addValueEventListener(new ValueEventListener(){
+        db.child("patients").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final List<String> clients = new ArrayList<String>();
+                final List<String> patients = new ArrayList<String>();
 
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     String name = areaSnapshot.child("name").getValue(String.class);
-                    clients.add(name);
+                    patients.add(name);
                 }
 
                 spinner = (Spinner) findViewById(R.id.patient) ;
-                ArrayAdapter<String> clients_final = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_spinner_item, clients);
-                clients_final.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(clients_final);
+                ArrayAdapter<String> patients_final = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_spinner_item, patients);
+                patients_final.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(patients_final);
             }
 
 
