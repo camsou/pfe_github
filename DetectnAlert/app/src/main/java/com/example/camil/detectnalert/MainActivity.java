@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.firebase.messaging.RemoteMessage;
 
 import java.security.cert.Extension;
 
@@ -238,15 +240,11 @@ public class MainActivity extends BaseActivity
         }
         else if (id == R.id.nav_logout)
         {
-            //Intent TestActivityIntent = new Intent(MainActivity.this, LoginActivity.class);
-            //startActivity(TestActivityIntent);
             signOut();
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 }

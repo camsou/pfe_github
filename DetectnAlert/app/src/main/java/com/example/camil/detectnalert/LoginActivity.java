@@ -38,6 +38,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                //Byte value = getIntent().getExtras().getByte(key);
+                Log.d(TAG, key);
+            }
+        }
+
         //View
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
