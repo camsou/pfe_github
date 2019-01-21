@@ -177,8 +177,8 @@ public class MainActivity extends BaseActivity
             mDetailTextView = (TextView) hView.findViewById(R.id.user);
 
             // Set information
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
+            //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
         } else {
             mStatusTextView.setText(R.string.signed_out);

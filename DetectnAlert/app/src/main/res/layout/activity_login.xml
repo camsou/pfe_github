@@ -87,22 +87,16 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/titleText"
+                android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/emailpassword_title_text"/>
+                android:text="@string/signed_out" />
 
             <TextView
                 android:id="@+id/detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="Firebase User ID: 123456789abc" />
-
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/signed_out" />
 
         </LinearLayout>
     </ScrollView>
