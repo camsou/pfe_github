@@ -9,15 +9,27 @@ import MFRC522
 import signal
 import time
 import socket
-from adxl345 import ADXL345
-from threading import Thread
 import sys
 import os
 import firebase_admin
+from   adxl345          import ADXL345
+from   threading        import Thread
 from   firebase_utils   import firebase_connect
 from   firebase_utils   import send_notification
 from   firebase_utils   import send_notification_color
+from   firebase_admin   import db
+from   firebase         import firebase
 
+# Id of the raspberry
+id_rasp = 1
+
+# Connect to the database
+firebase = firebase.FirebaseApplication('https://detect-n-alert.firebaseio.com', None)
+firebase_connect()
+
+# Initailisation de la variable notification
+ref = db.reference('/')
+ref.update({'Notification/Notification_%d/Etat' %id_rasp : 1})
 
 # Welcome message
 print "Welcome to Detect'N'Alert example"
@@ -59,9 +71,7 @@ def lost():
             for wifi in wifi_ip:
                 if ip[:3] == wifi[:3]:
                     print "Objet de Jean Dupont perdu en zone %d" %(wifi_ip.index(wifi)+1)
-		    firebase_connect()
-		    send_notification("Objet de Jean Dupont perdu en zone %d" %(wifi_ip.index(wifi)+1))
-		    send_notification_color("#ff0000")
+		    send_notification("Objet de Jean Dupont perdu", "en zone %d" %(wifi_ip.index(wifi)+1))
                     t1 = time.time() + 15
                     i+=1
 
@@ -70,7 +80,7 @@ thread1.start()
 
 # Create a fonction to detect the fall
 def chute():
-    while True:
+    while (firebase.get('/Notification/Notification_%d/Etat' %id_rasp, None) == 1):
         # Initialisation ip
         ip = socket.gethostbyname("raspberrypi.local")
 
@@ -95,14 +105,12 @@ def chute():
 		    continue_reading = True
                     chute()
             # If no other movement during 10 secondes -> fall
-            while ((time.time()-t1)>10):
+            while ((time.time()-t1)>10) and (firebase.get('/Notification/Notification_%d/Etat' %id_rasp, None) == 1):
                 # Send reminder every 5 secondes
                 for wifi in wifi_ip:
                     if ip[:3] == wifi[:3]:
                        print("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
-		       firebase_connect()
-                       send_notification("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
-                       send_notification_color("#ff0000")
+                       send_notification("Monsieur Dupont est tombe", "Il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
                        time.sleep(5)
 
 chute()
