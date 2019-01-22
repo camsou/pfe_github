@@ -12,6 +12,12 @@ import socket
 from adxl345 import ADXL345
 from threading import Thread
 import sys
+import os
+import firebase_admin
+from   firebase_utils   import firebase_connect
+from   firebase_utils   import send_notification
+from   firebase_utils   import send_notification_color
+
 
 # Welcome message
 print "Welcome to Detect'N'Alert example"
@@ -53,6 +59,9 @@ def lost():
             for wifi in wifi_ip:
                 if ip[:3] == wifi[:3]:
                     print "Objet de Jean Dupont perdu en zone %d" %(wifi_ip.index(wifi)+1)
+		    firebase_connect()
+		    send_notification("Objet de Jean Dupont perdu en zone %d" %(wifi_ip.index(wifi)+1))
+		    send_notification_color("#ff0000")
                     t1 = time.time() + 15
                     i+=1
 
@@ -91,6 +100,9 @@ def chute():
                 for wifi in wifi_ip:
                     if ip[:3] == wifi[:3]:
                        print("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
+		       firebase_connect()
+                       send_notification("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
+                       send_notification_color("#ff0000")
                        time.sleep(5)
 
 chute()
