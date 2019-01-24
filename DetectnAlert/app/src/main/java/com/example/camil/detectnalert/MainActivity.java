@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 //Authentification
+import com.example.camil.detectnalert.fragment.MyPostsFragment;
 import com.example.camil.detectnalert.fragment.RecentPostsFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -77,9 +78,11 @@ public class MainActivity extends BaseActivity
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new RecentPostsFragment(),
+                    new MyPostsFragment(),
             };
             private final String[] mFragmentNames = new String[] {
-                    getString(R.string.heading_recent)
+                    getString(R.string.heading_recent),
+                    getString(R.string.heading_my_posts)
             };
             @Override
             public Fragment getItem(int position) {
@@ -100,6 +103,11 @@ public class MainActivity extends BaseActivity
         mViewPager.setAdapter(mPagerAdapter);
         TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
     }
 
     // [START on_start_check_user]

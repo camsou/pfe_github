@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:textSize="25sp"
-            android:text="Historique des alertes :" />
+            android:layout_marginTop="10dp"
+            android:text="Historique des alertes" />
 
         <Button
             android:id="@+id/logTokenButton"
@@ -24,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/token"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="50dp"/>
 
         <Button
             android:id="@+id/newAlertButton"
@@ -32,16 +37,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Alerte"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:layout_marginTop="100dp"/>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"/>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tabs" />
-</LinearLayout>
+            android:layout_below="@+id/tabs"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
