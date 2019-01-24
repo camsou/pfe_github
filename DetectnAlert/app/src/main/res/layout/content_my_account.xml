@@ -20,7 +20,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                app:srcCompat="@drawable/user"/>
+                app:srcCompat="@drawable/ic_action_account_circle_40"/>
             <TextView
                 android:id="@+id/email"
                 android:layout_marginTop="10dp"

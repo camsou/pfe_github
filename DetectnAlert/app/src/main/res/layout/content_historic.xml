@@ -11,61 +11,52 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical"
-                android:text="Compte rendu de l'incident"
-                android:gravity="center"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:textSize="25sp"/>
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp">
+            android:text="Compte rendu de l'incident "
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"/>
 
-            <EditText
-                android:id="@+id/compterendu"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:inputType="textMultiLine"
-                android:hint="Entrer un compte rendu" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/fieldTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="140dp">
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="60dp"
+            android:hint="Titre de l'incident"
+            android:maxLines="1" />
 
-            <Button
-                android:id="@+id/alertButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Ajouter "
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/fieldBody"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="220dp">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fieldTitle"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp"
+            android:hint="Détails..."
+            android:inputType="textMultiLine"
+            android:maxLines="10"
+            android:scrollHorizontally="false" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Historique du patient :"
-                android:textSize="20dp"/>
-        </LinearLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabSubmitPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_navigation_check_24"/>
 
     </RelativeLayout>
+
 
 </android.support.constraint.ConstraintLayout>
