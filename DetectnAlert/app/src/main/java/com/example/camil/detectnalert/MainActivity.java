@@ -55,7 +55,6 @@ public class MainActivity extends BaseActivity
      */
 
     private TextView mStatusTextView;
-    private TextView mDetailTextView;
     private NavigationView navigationView;
     private View           hView;
     private FragmentPagerAdapter mPagerAdapter;
@@ -130,15 +129,13 @@ public class MainActivity extends BaseActivity
 
             // Getting the information inside the header
             mStatusTextView = (TextView) hView.findViewById(R.id.email);
-            mDetailTextView = (TextView) hView.findViewById(R.id.user);
 
             // Set information
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
-            //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            String username = usernameFromEmail(user.getEmail());
+            mStatusTextView.setText(username);
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
         }
     }
 
@@ -157,6 +154,14 @@ public class MainActivity extends BaseActivity
     {
         super.setContentView(layoutResID);
         onCreateDrawer() ;
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
+        }
     }
 
     protected void onCreateDrawer() {

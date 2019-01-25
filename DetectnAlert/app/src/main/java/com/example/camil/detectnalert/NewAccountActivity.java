@@ -29,6 +29,9 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
 
     private EditText mEmailField;
     private EditText mPasswordField;
+    private EditText mProfession;
+    private EditText mPatient;
+    private EditText mEtage;
     private Button mSignUpButton;
 
     @Override
@@ -42,6 +45,12 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
         // Views
         mEmailField = findViewById(R.id.Identifiant);
         mPasswordField = findViewById(R.id.MotDePasse);
+        mProfession = findViewById(R.id.Profession);
+        mPatient = findViewById(R.id.Nb_patient);
+        mEtage = findViewById(R.id.etage);
+
+
+        //Button
         mSignUpButton = findViewById(R.id.CreateNewAccount);
 
         // Click listeners
@@ -67,6 +76,7 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
         showProgressDialog();
         String email = mEmailField.getText().toString();
         String password = mPasswordField.getText().toString();
+
 
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {

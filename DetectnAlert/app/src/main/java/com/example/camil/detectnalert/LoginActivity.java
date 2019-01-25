@@ -26,9 +26,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private static final String TAG = "LoginActivity";
 
-    private TextView mStatusTextView;
-    private TextView mDetailTextView;
-    private AutoCompleteTextView mEmailView;
+    private EditText mEmailView;
     private EditText mPasswordView;
 
     private Button mSignInButton;
@@ -59,13 +57,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         //View
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
-        mStatusTextView = findViewById(R.id.status);
-        mDetailTextView = findViewById(R.id.detail);
 
         //Button
         mSignInButton=findViewById(R.id.email_sign_in_button);
         mSignUpButton=findViewById(R.id.new_account_button);
-        findViewById(R.id.sign_out_button).setOnClickListener(this);
 
         // Click listeners
         mSignInButton.setOnClickListener(this);
@@ -111,10 +106,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     }
                 });
         // [END sign_in_with_email]
-    }
-
-    private void signOut() {
-        mAuth.signOut();
     }
 
     private void onAuthSuccess(FirebaseUser user) {
@@ -169,11 +160,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         if (i == R.id.new_account_button) {
             Intent HistoricIntent = new Intent(LoginActivity.this, NewAccountActivity.class);
             startActivity(HistoricIntent);
-            //createAccount(mEmailView.getText().toString(), mPasswordView.getText().toString());
         } else if (i == R.id.email_sign_in_button) {
             signIn();}
-        else if (i == R.id.sign_out_button) {
-            signOut();
-        }
     }
 }

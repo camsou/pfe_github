@@ -2,7 +2,10 @@
     <string name="app_name">Detect\'nAlert</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Adresse email</string>
-    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_password">Mot de passe (min 6 car.)</string>
+    <string name="password">Mot de passe</string>
+    <string name="etage">Etage</string>
+    <string name="nb_patients">Nombre de patients à charge</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">Email invalide</string>
@@ -23,7 +26,7 @@
     <string name="new_account">Créer un nouveau compte</string>
     <string name="loading">Loading…</string>
     <string name="sign_out">Sign Out</string>
-    <string name="signed_out">Signed Out</string>
+    <string name="signed_out">Déconnecté</string>
     <string name="auth_failed">Authentication failed</string>
     <string name="emailpassword_status_fmt">Email User: %1$s</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>

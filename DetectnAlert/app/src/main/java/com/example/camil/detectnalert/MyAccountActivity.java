@@ -47,10 +47,19 @@ public class MyAccountActivity extends MainActivity {
             mStatusTextView = (TextView) findViewById(R.id.email);
 
             // Set information
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt, user.getEmail()));
+            String username = usernameFromEmail(user.getEmail());
+            mStatusTextView.setText(username);
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
+        }
+    }
+
+    private String usernameFromEmail(String email) {
+        if (email.contains("@")) {
+            return email.split("@")[0];
+        } else {
+            return email;
         }
     }
 }
