@@ -51,6 +51,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorPrimary">
                     <TextView
+                        android:id="@+id/etage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1er étage"
@@ -66,6 +67,7 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorPrimary">
                     <TextView
+                        android:id="@+id/nb_patient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="7 Patients"

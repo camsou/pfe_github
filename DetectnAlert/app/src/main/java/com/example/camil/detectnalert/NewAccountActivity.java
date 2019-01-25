@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.camil.detectnalert.models.User;
@@ -97,9 +96,12 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
 
     private void onAuthSuccess(FirebaseUser user) {
         String username = usernameFromEmail(user.getEmail());
+        String profession = mProfession.getText().toString();
+        String patient = mPatient.getText().toString();
+        String etage = mEtage.getText().toString();
 
         // Write new user
-        writeNewUser(user.getUid(), username, user.getEmail());
+        writeNewUser(user.getUid(), username, user.getEmail(), profession, patient, etage);
 
         // Go to MainActivity
         startActivity(new Intent(NewAccountActivity.this, MainActivity.class));
@@ -129,13 +131,32 @@ public class NewAccountActivity extends BaseActivity implements View.OnClickList
         } else {
             mPasswordField.setError(null);
         }
+        if (TextUtils.isEmpty(mProfession.getText().toString())) {
+            mProfession.setError("Required");
+            result = false;
+        } else {
+            mProfession.setError(null);
+        }
+        if (TextUtils.isEmpty(mPatient.getText().toString())) {
+            mPatient.setError("Required");
+            result = false;
+        } else {
+            mPatient.setError(null);
+        }
+        if (TextUtils.isEmpty(mEtage.getText().toString())) {
+            mEtage.setError("Required");
+            result = false;
+        } else {
+            mEtage.setError(null);
+        }
+
 
         return result;
     }
 
     // [START basic_write]
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
+    private void writeNewUser(String userId, String name, String email, String profession, String patient, String etage) {
+        User user = new User(name, email, profession, patient, etage);
 
         mDatabase.child("users").child(userId).setValue(user);
     }

@@ -109,10 +109,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void onAuthSuccess(FirebaseUser user) {
-        String username = usernameFromEmail(user.getEmail());
-
-        // Write new user
-        writeNewUser(user.getUid(), username, user.getEmail());
 
         // Go to MainActivity
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
@@ -145,14 +141,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         return result;
     }
-
-    // [START basic_write]
-    private void writeNewUser(String userId, String name, String email) {
-        User user = new User(name, email);
-
-        mDatabase.child("users").child(userId).setValue(user);
-    }
-    // [END basic_write]
 
     @Override
     public void onClick(View v) {

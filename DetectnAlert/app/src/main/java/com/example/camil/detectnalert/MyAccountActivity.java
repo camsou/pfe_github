@@ -1,18 +1,24 @@
 package com.example.camil.detectnalert;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.example.camil.detectnalert.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class MyAccountActivity extends MainActivity {
+public class MyAccountActivity extends BaseActivity {
 
-    // [START declare_auth]
+    private static final String TAG = "MyAccountActivity";
+
     private FirebaseAuth mAuth;
-    // [END declare_auth]
+    private DatabaseReference mDatabase;
 
 
     /* Creation de la page */
@@ -20,12 +26,9 @@ public class MyAccountActivity extends MainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_account);
-        super.onCreateDrawer();
 
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     // [START on_start_check_user]
@@ -39,6 +42,8 @@ public class MyAccountActivity extends MainActivity {
     // [END on_start_check_user]
 
     private TextView mStatusTextView;
+    private TextView mPatient;
+    private TextView mEtage;
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -49,6 +54,9 @@ public class MyAccountActivity extends MainActivity {
             // Set information
             String username = usernameFromEmail(user.getEmail());
             mStatusTextView.setText(username);
+            //String patient =
+            //mPatient.setText(patient);
+            //mEtage.setText(etage);
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
@@ -62,5 +70,21 @@ public class MyAccountActivity extends MainActivity {
             return email;
         }
     }
+
+    // Read from the database
+    ValueEventListener userListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // This method is called once with the initial value and again
+            // whenever data at this location is updated.
+            User user = dataSnapshot.getValue(User.class);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError error) {
+            // Failed to read value
+            Log.w(TAG, "loadUser:onCancelled", error.toException());
+        }
+    };
 }
 
