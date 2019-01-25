@@ -34,6 +34,56 @@
             android:layout_marginTop="60dp"
             tools:layout_margin="@tools:sample/full_names" />
 
+        <TextView
+            android:id="@+id/id_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="117dp"
+            android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/id_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="150dp"
+            android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/id_firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/id_name"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="179dp"
+            android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/id_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/id_name"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="208dp"
+            android:text="@string/textview" />
+
+        <TextView
+            android:id="@+id/id_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/id_text"
+            android:layout_centerVertical="true"
+            android:text="@string/textview" />
+
 
     </RelativeLayout>
 
