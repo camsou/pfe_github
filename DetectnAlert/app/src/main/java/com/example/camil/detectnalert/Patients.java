@@ -2,39 +2,47 @@ package com.example.camil.detectnalert;
 
 public class Patients {
 
-    public String id;
-    public String name;
-    public String first_name;
-    public String timestamp_Ephad;
-    public String sex;
+    private String id_patient;
+    private String name;
+    private String first_name;
+    private String timestamp_in_ephad;
+    private String sex;
 
     public Patients()
     {
         //Constructeur
     }
 
-    public Patients(String id, String name, String first_name, String timestamp_Ephad, String sex){
-        this.id= id;
+    public Patients(String id_patient, String name, String first_name, String timestamp_in_ephad, String sex){
+        this.id_patient = id_patient;
         this.name = name;
         this.first_name = first_name;
-        this.timestamp_Ephad = timestamp_Ephad;
+        this.timestamp_in_ephad = timestamp_in_ephad;
         this.sex = sex;
     }
-    public String GetPatientName() {
+
+    protected String GetPatientName()
+    {
         return name;
     }
-    public String GetPatientFirstName() {
+
+    protected String GetPatientFirstName()
+    {
         return first_name;
     }
-    public String GetPatientTimestamp() {
-        return timestamp_Ephad;
+
+    protected String GetPatientTimestamp()
+    {
+        return timestamp_in_ephad;
     }
-    public String GetPatientSex() {
+
+    protected String GetPatientSex()
+    {
         return sex;
     }
-    public String GetPatientID() {
-        return id;
+
+    protected String GetPatientID()
+    {
+        return id_patient;
     }
-
-
 }
