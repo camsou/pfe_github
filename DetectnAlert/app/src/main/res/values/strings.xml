@@ -2,7 +2,10 @@
     <string name="app_name">Detect\'nAlert</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Adresse email</string>
-    <string name="prompt_password">Mot de passe</string>
+    <string name="prompt_password">Mot de passe (min 6 car.)</string>
+    <string name="password">Mot de passe</string>
+    <string name="etage">Etage</string>
+    <string name="nb_patients">Nombre de patients à charge</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">Email invalide</string>
@@ -12,6 +15,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="emailpassword_title_text">Email and Password</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,10 +24,22 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="new_account">Créer un nouveau compte</string>
+    <string name="loading">Loading…</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="signed_out">Déconnecté</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="emailpassword_status_fmt">Email User: %1$s</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+
+    <!-- Compte rendus -->
+    <string name="heading_recent">Recent</string>
+    <string name="heading_my_posts">Mes comptes rendus</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec condimentum ante, quis mattis mi. Proin ut rhoncus libero, ac euismod neque. Ut suscipit, enim a facilisis consequat, orci lacus venenatis orci, at ultricies orci nulla sed ex. In condimentum viverra velit, eget feugiat libero imperdiet vel. Aenean pretium, lectus vitae bibendum bibendum, diam turpis convallis eros, quis tristique leo sapien at ipsum. Praesent eu odio id nulla lobortis auctor. Donec eget dolor eget nisl euismod commodo vel a lacus. Quisque ut justo vitae urna pharetra accumsan. Etiam dignissim neque iaculis mauris viverra, blandit rhoncus odio porttitor. Phasellus nibh arcu.</string>
+
 
     <!-- Strings related to Nav Bar Header -->
-    <string name="nav_header_name">Camille Zordan</string>
-    <string name="nav_header_function">Aide Soignante</string>
+    <string name="nav_header_name">Arthur de Witt</string>
+    <string name="nav_header_function">Aide Soignant</string>
 
     <!-- Strings related to Nav Bar -->
     <string name="historique_alertes">Historique des alertes</string>
@@ -37,4 +53,9 @@
     <string name="mdp">Mot de passe</string>
     <string name="mdpbis">Confirmation du mot de passe</string>
     <string name="connexion">Se connecter</string>
+    <string name="nouveaucompte">Créer un nouveau compte</string>
+
+    <string name="token">Générer un token</string>
+    <string name="title_activity_alert">AlertActivity</string>
+    <string name="title_activity_historic">HistoricActivity</string>
 </resources>
