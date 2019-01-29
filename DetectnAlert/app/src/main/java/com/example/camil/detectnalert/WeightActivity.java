@@ -29,8 +29,9 @@ public class WeightActivity extends MainActivity  {
     TextView id_sex;
     TextView id_name;
     TextView id_firstname;
-    TextView id_id;
+    TextView id_patient;
     TextView id_timestamp;
+    TextView id_weight;
 
 
 
@@ -47,8 +48,6 @@ public class WeightActivity extends MainActivity  {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 final List<String> patients = new ArrayList<String>();
-                final ArrayList<Patients> table = new ArrayList<Patients>();
-
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     String name = areaSnapshot.child("name").getValue(String.class);
@@ -58,10 +57,10 @@ public class WeightActivity extends MainActivity  {
                 }
 
                 spinner = (Spinner) findViewById(R.id.patient) ;
-                id_sex = (TextView) findViewById(R.id.id_text) ;
+                id_sex = (TextView) findViewById(R.id.id_sex) ;
                 id_name = (TextView) findViewById(R.id.id_name) ;
                 id_firstname = (TextView) findViewById(R.id.id_firstname) ;
-                id_id = (TextView) findViewById(R.id.id_id) ;
+                //id_patient = (TextView) findViewById(R.id.id_patient) ;
                 id_timestamp = (TextView) findViewById(R.id.id_timestamp) ;
 
 
@@ -78,23 +77,23 @@ public class WeightActivity extends MainActivity  {
 
 
                         String sex;
-                        sex = table.get(i).GetPatientSex();
+                        sex = patients_table.get(i).GetPatientSex();
                         id_sex.setText(sex);
 
                         String name;
-                        name = table.get(i).GetPatientName();
+                        name = patients_table.get(i).GetPatientName();
                         id_name.setText(name);
 
                         String name_first;
-                        name_first = table.get(i).GetPatientFirstName();
+                        name_first = patients_table.get(i).GetPatientFirstName();
                         id_firstname.setText(name_first);
 
-                        String carte_identite;
-                        carte_identite = table.get(i).GetPatientID();
-                        id_id.setText(carte_identite);
+                        String id;
+                        id = patients_table.get(i).GetPatientID();
+                        //id_patient.setText(id);
 
                         String timestamp_ehpad;
-                        timestamp_ehpad = table.get(i).GetPatientTimestamp();
+                        timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
                         id_timestamp.setText(timestamp_ehpad);
 
 
