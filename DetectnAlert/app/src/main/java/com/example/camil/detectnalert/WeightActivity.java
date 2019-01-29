@@ -33,7 +33,10 @@ public class WeightActivity extends MainActivity  {
     TextView id_timestamp;
     TextView id_weight;
 
-
+    // Tables containing data from Firebase Realtime Database
+    ArrayList<Patients>     patients_table      = new ArrayList<Patients>();
+    ArrayList<RoomPatient>  room_patient_table  = new ArrayList<RoomPatient>();
+    ArrayList<Weights>      weights_table       = new ArrayList<Weights>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,16 +47,31 @@ public class WeightActivity extends MainActivity  {
         db=FirebaseDatabase.getInstance().getReference();
         helper=new FirebaseHelper(db);
 
+        //------------------------------------------------------------------------------
+        // Update patients
+        //------------------------------------------------------------------------------
         db.child("patients").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 final List<String> patients = new ArrayList<String>();
 
+                /* Get Patients from Firebase Realtime Database */
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-                    String name = areaSnapshot.child("name").getValue(String.class);
-                    Patients pat = areaSnapshot.getValue(Patients.class);
-                    patients.add(name);
-                    table.add(pat);
+
+                    String name         = areaSnapshot.child("name").getValue(String.class);
+                    String first_name   = areaSnapshot.child("first_name").getValue(String.class);
+
+                    Patients pat = new Patients(
+                            String.valueOf(areaSnapshot.child("id_patient").getValue()),
+                            areaSnapshot.child("name").getValue(String.class),
+                            areaSnapshot.child("first_name").getValue(String.class),
+                            areaSnapshot.child("timestamp_in_ehpad").getValue(String.class),
+                            areaSnapshot.child("sex").getValue(String.class)
+                    );
+
+                    // Name in Spinner
+                    patients.add(first_name + " " + name);
+                    patients_table.add(pat);
                 }
 
                 spinner = (Spinner) findViewById(R.id.patient) ;
@@ -62,9 +80,10 @@ public class WeightActivity extends MainActivity  {
                 id_firstname = (TextView) findViewById(R.id.id_firstname) ;
                 //id_patient = (TextView) findViewById(R.id.id_patient) ;
                 id_timestamp = (TextView) findViewById(R.id.id_timestamp) ;
+                id_weight = (TextView) findViewById(R.id.id_weight) ;
 
 
-
+                /* Fill spinner with patients */
                 ArrayAdapter<String> patients_final = new ArrayAdapter<String>(WeightActivity.this, android.R.layout.simple_spinner_item, patients);
                 patients_final.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(patients_final);
@@ -96,6 +115,9 @@ public class WeightActivity extends MainActivity  {
                         timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
                         id_timestamp.setText(timestamp_ehpad);
 
+                        String card   = matchIdCard(id, room_patient_table);
+                        String weight = getWeightsInRoom(card, weights_table);
+                        id_weight.setText(weight);
 
                     }
 
@@ -112,6 +134,58 @@ public class WeightActivity extends MainActivity  {
 
             }
         });
+
+        //------------------------------------------------------------------------------
+        // Update room_patient
+        //------------------------------------------------------------------------------
+        db.child("room_patient").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+
+                    RoomPatient rp = new RoomPatient(
+                            String.valueOf(areaSnapshot.child("id_card").getValue()),
+                            String.valueOf(areaSnapshot.child("id_patient").getValue()),
+                            areaSnapshot.child("timestamp_in_room").getValue(String.class)
+                    );
+
+                    room_patient_table.add(rp);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // cancel
+            }
+        });
+
+        //------------------------------------------------------------------------------
+        // Update weights
+        //------------------------------------------------------------------------------
+        db.child("weights").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
+
+                    Weights wei = new Weights(
+                            String.valueOf(areaSnapshot.child("id_card").getValue()),
+                            String.valueOf(areaSnapshot.child("id_weight").getValue()),
+                            areaSnapshot.child("timestamp_weight").getValue(String.class),
+                            String.valueOf(areaSnapshot.child("value").getValue())
+                    );
+                    
+                    weights_table.add(wei);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // cancel
+            }
+        });
+
         //mAlertButton= (Button) findViewById(R.id.alertButton);
 
         /*
@@ -127,5 +201,45 @@ public class WeightActivity extends MainActivity  {
         });
         */
         }
+
+    /**
+     * Function that matches the patient ID with the room ID.
+     *
+     * @param id the patient id.
+     * @param room_patient_table the RoomPatient table.
+     * @return the room id (id_card), null if error.
+     */
+    protected String matchIdCard(String id, ArrayList<RoomPatient> room_patient_table)
+    {
+        for (int i = 0; i < room_patient_table.size(); i++)
+        {
+            if (room_patient_table.get(i).id_patient.equals(id))
+            {
+                return room_patient_table.get(i).id_card;
+            }
+        }
+
+        return "null";
+    }
+
+    /**
+     * Function that gets weight value in given room.
+     *
+     * @param id_card the room ID.
+     * @param weights_table the weight table.
+     * @return the weight value, null if error.
+     */
+    protected String getWeightsInRoom(String id_card, ArrayList<Weights> weights_table)
+    {
+        for (int i = 0; i < weights_table.size(); i++)
+        {
+            if (weights_table.get(i).id_card.equals(id_card))
+            {
+                return weights_table.get(i).value_weight;
+            }
+        }
+
+        return "null";
+    }
 }
 
