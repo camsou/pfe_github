@@ -115,9 +115,13 @@ public class WeightActivity extends MainActivity  {
                         timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
                         id_timestamp.setText(timestamp_ehpad);
 
-                        String card   = matchIdCard(id, room_patient_table);
-                        String weight = getWeightsInRoom(card, weights_table);
-                        id_weight.setText(weight);
+                        String            card         = matchIdCard(id, room_patient_table);
+                        ArrayList<String> last_weights = getWeightsInRoom(card, weights_table);
+
+                        if (last_weights.size() != 0)
+                        {
+                            id_weight.setText(last_weights.get(0));
+                        }
 
                     }
 
@@ -229,17 +233,19 @@ public class WeightActivity extends MainActivity  {
      * @param weights_table the weight table.
      * @return the weight value, null if error.
      */
-    protected String getWeightsInRoom(String id_card, ArrayList<Weights> weights_table)
+    protected ArrayList<String> getWeightsInRoom(String id_card, ArrayList<Weights> weights_table)
     {
+        ArrayList<String> weights_in_room = new ArrayList<>();
+
         for (int i = 0; i < weights_table.size(); i++)
         {
             if (weights_table.get(i).id_card.equals(id_card))
             {
-                return weights_table.get(i).value_weight;
+                weights_in_room.add(weights_table.get(i).value_weight);
             }
         }
 
-        return "null";
+        return weights_in_room;
     }
 }
 
