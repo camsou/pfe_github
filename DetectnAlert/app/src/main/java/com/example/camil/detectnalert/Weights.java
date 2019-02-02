@@ -1,16 +1,16 @@
 package com.example.camil.detectnalert;
 
 public class Weights {
-    String id_card;
-    String id_weight;
+    int id_card;
+    int id_weight;
     int timestamp_weight;
-    int value_weight;
+    Float value_weight;
 
     public Weights() {
         //Constructeur
     }
 
-    public Weights(String id_card, String id_weight, int timestamp_weight, int value_weight) {
+    public Weights(int id_card, int id_weight, int timestamp_weight, Float value_weight) {
 
         this.id_card = id_card;
         this.id_weight = id_weight;
@@ -18,11 +18,11 @@ public class Weights {
         this.value_weight = value_weight;
     }
 
-    public String GetIdCard() {
+    public int GetIdCard() {
         return id_card;
     }
 
-    public String GetIdWeight() {
+    public int GetIdWeight() {
         return id_weight;
     }
 
@@ -30,7 +30,7 @@ public class Weights {
         return timestamp_weight;
     }
 
-    public int GetValueWeight() {
+    public Float GetValueWeight() {
         return value_weight;
     }
 }

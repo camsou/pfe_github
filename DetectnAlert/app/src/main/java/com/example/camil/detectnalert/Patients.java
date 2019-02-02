@@ -2,10 +2,10 @@ package com.example.camil.detectnalert;
 
 public class Patients {
 
-    private String id_patient;
+    private int id_patient;
     private String name;
     private String first_name;
-    private String timestamp_in_ephad;
+    private int timestamp_in_ephad;
     private String sex;
 
     public Patients()
@@ -13,7 +13,7 @@ public class Patients {
         //Constructeur
     }
 
-    public Patients(String id_patient, String name, String first_name, String timestamp_in_ephad, String sex){
+    public Patients(int id_patient, String name, String first_name, int timestamp_in_ephad, String sex){
         this.id_patient = id_patient;
         this.name = name;
         this.first_name = first_name;
@@ -31,7 +31,7 @@ public class Patients {
         return first_name;
     }
 
-    protected String GetPatientTimestamp()
+    protected int GetPatientTimestamp()
     {
         return timestamp_in_ephad;
     }
@@ -41,7 +41,7 @@ public class Patients {
         return sex;
     }
 
-    protected String GetPatientID()
+    protected int GetPatientID()
     {
         return id_patient;
     }

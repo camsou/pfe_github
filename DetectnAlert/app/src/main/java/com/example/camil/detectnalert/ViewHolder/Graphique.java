@@ -1,14 +1,14 @@
 package com.example.camil.detectnalert.ViewHolder;
 
-public class graphique {
-    int xValue;
-    int yValue;
+public class Graphique {
+    int  xValue; // timestamp
+    Float yValue; // value
 
-    public  graphique(){
+    public Graphique(){
 
     }
 
-    public graphique(int xValue, int yValue){
+    public Graphique(int xValue, Float yValue){
 
         this.xValue= xValue;
         this.yValue= yValue;
@@ -19,7 +19,7 @@ public class graphique {
         return xValue;
     }
 
-    public int GetyValue(){
+    public Float GetyValue(){
         return  yValue; 
     }
 }

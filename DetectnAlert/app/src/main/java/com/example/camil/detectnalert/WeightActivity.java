@@ -70,10 +70,10 @@ public class WeightActivity extends MainActivity  {
                     String first_name   = areaSnapshot.child("first_name").getValue(String.class);
 
                     Patients pat = new Patients(
-                            String.valueOf(areaSnapshot.child("id_patient").getValue()),
+                            areaSnapshot.child("id_patient").getValue(Integer.class),
                             areaSnapshot.child("name").getValue(String.class),
                             areaSnapshot.child("first_name").getValue(String.class),
-                            areaSnapshot.child("timestamp_in_ehpad").getValue(String.class),
+                            areaSnapshot.child("timestamp_in_ehpad").getValue(Integer.class),
                             areaSnapshot.child("sex").getValue(String.class)
                     );
 
@@ -118,20 +118,29 @@ public class WeightActivity extends MainActivity  {
                         name_first = patients_table.get(i).GetPatientFirstName();
                         id_firstname.setText(name_first);
 
-                        String id;
+                        int id;
                         id = patients_table.get(i).GetPatientID();
                         //id_patient.setText(id);
 
-                        String timestamp_ehpad;
+                        int timestamp_ehpad;
                         timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
-                        id_timestamp.setText(timestamp_ehpad);
 
-                        String            card         = matchIdCard(id, room_patient_table);
-                        ArrayList<String> last_weights = getWeightsInRoom(card, weights_table);
+                        // Change timestamp to string just for display
+                        // (int) 20192305 -> (String) "2019/23/05"
+                        String timestamp_ehpad_string = String.valueOf(timestamp_ehpad);
+                        timestamp_ehpad_string =
+                                timestamp_ehpad_string.substring(0, 4)
+                                + "/" + timestamp_ehpad_string.substring(4, 6)
+                                + "/" + timestamp_ehpad_string.substring(6, timestamp_ehpad_string.length());
+                        id_timestamp.setText(timestamp_ehpad_string);
+
+                        int              card         = matchIdCard(id, room_patient_table);
+                        ArrayList<Float> last_weights = getWeightsInRoom(card, weights_table);
 
                         if (last_weights.size() != 0)
                         {
-                            id_weight.setText(last_weights.get(0));
+                            String text = last_weights.get(0) + " kg";
+                            id_weight.setText(text);
                         }
 
                     }
@@ -160,9 +169,9 @@ public class WeightActivity extends MainActivity  {
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
 
                     RoomPatient rp = new RoomPatient(
-                            String.valueOf(areaSnapshot.child("id_card").getValue()),
-                            String.valueOf(areaSnapshot.child("id_patient").getValue()),
-                            areaSnapshot.child("timestamp_in_room").getValue(String.class)
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("id_card").getValue())),
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("id_patient").getValue())),
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("timestamp_in_room").getValue()))
                     );
 
                     room_patient_table.add(rp);
@@ -183,16 +192,15 @@ public class WeightActivity extends MainActivity  {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
-
                     Weights wei = new Weights(
-                            String.valueOf(areaSnapshot.child("id_card").getValue()),
-                            String.valueOf(areaSnapshot.child("id_weight").getValue()),
-                            areaSnapshot.child("timestamp_weight").getValue().hashCode(),
-                            areaSnapshot.child("value").getValue().hashCode()
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("id_card").getValue())),
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("id_weight").getValue())),
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("timestamp_weight").getValue())),
+                            Float.parseFloat(String.valueOf(areaSnapshot.child("value").getValue()))
                     );
-                    graphique gra = new graphique(
-                            areaSnapshot.child("value").getValue().hashCode(),
-                            areaSnapshot.child("timestamp_weight").getValue().hashCode()
+                    Graphique gra = new Graphique(
+                            Integer.parseInt(String.valueOf(areaSnapshot.child("timestamp_weight").getValue())),
+                            Float.parseFloat(String.valueOf(areaSnapshot.child("value").getValue()))
                     );
 
                     weights_table.add(wei);
@@ -229,17 +237,17 @@ public class WeightActivity extends MainActivity  {
      * @param room_patient_table the RoomPatient table.
      * @return the room id (id_card), null if error.
      */
-    protected String matchIdCard(String id, ArrayList<RoomPatient> room_patient_table)
+    protected int matchIdCard(int id, ArrayList<RoomPatient> room_patient_table)
     {
         for (int i = 0; i < room_patient_table.size(); i++)
         {
-            if (room_patient_table.get(i).id_patient.equals(id))
+            if (room_patient_table.get(i).GetPatientID() == id)
             {
                 return room_patient_table.get(i).id_card;
             }
         }
 
-        return "null";
+        return 0;
     }
 
     /**
@@ -249,15 +257,15 @@ public class WeightActivity extends MainActivity  {
      * @param weights_table the weight table.
      * @return the weight value, null if error.
      */
-    protected ArrayList<String> getWeightsInRoom(String id_card, ArrayList<Weights> weights_table)
+    protected ArrayList<Float> getWeightsInRoom(int id_card, ArrayList<Weights> weights_table)
     {
-        ArrayList<String> weights_in_room = new ArrayList<>();
+        ArrayList<Float> weights_in_room = new ArrayList<>();
 
         for (int i = 0; i < weights_table.size(); i++)
         {
-            if (weights_table.get(i).id_card.equals(id_card))
+            if (weights_table.get(i).GetIdCard() == id_card)
             {
-                weights_in_room.add(String.valueOf(weights_table.get(i).value_weight));
+                weights_in_room.add(weights_table.get(i).GetValueWeight());
             }
         }
 
