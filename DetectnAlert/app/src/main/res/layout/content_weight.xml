@@ -13,17 +13,21 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="181dp">
+        tools:layout_editor_absoluteY="181dp"
+        android:gravity="start"
+        tools:layout_editor_absoluteX="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="start"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:layout_marginTop="20dp"
                 android:text="@string/statistiques_patients"
                 android:textColor="@color/colorPrimary"
                 android:textSize="30sp"
@@ -32,61 +36,154 @@
 
         <Spinner
             android:id="@+id/patient"
-            android:layout_width="match_parent"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:gravity="start"
             tools:layout_margin="@tools:sample/full_names" />
 
         <TextView
             android:id="@+id/id_firstname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="13dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginTop="117dp"
-            android:text="@string/textview" />
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="130dp"
+            android:fontFamily="sans-serif"
+            android:gravity="start"
+            android:text="@string/prenom"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/id_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="14dp"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="150dp"
-            android:text="@string/textview" />
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="160dp"
+            android:gravity="start"
+            android:text="@string/patient_name"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/id_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/id_name"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="179dp"
-            android:text="@string/textview" />
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="190dp"
+            android:gravity="start"
+            android:text="@string/patient_sex"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/id_timestamp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/id_name"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="208dp"
-            android:text="@string/textview" />
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="220dp"
+            android:gravity="start"
+            android:text="@string/patient_timestamp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/id_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/id_name"
-            android:layout_centerVertical="true"
-            android:text="@string/textview" />
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="250dp"
+            android:gravity="start"
+            android:text="@string/patient_weight"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_firstname_value"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/id_firstname"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_name_value"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/id_name"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_sex_value"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/id_sex"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_timestamp_value"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/id_timestamp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/id_weight_value"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/id_weight"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="37dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginBottom="0dp"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/colorBlue"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <com.jjoe64.graphview.GraphView
             android:id="@+id/graph"

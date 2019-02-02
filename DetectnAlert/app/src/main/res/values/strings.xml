@@ -63,4 +63,13 @@
     <string name="statistiques_patients">Statistiques patients</string>
     <string name="textview">TextView</string>
 
+    <!-- Strings related to patients -->
+    <string name="patient_name">Nom</string>
+    <string name="patient_firstname">Prénom</string>
+    <string name="patient_sex">Sexe</string>
+    <string name="sex_h">Homme</string>
+    <string name="sex_f">Femme</string>
+    <string name="patient_timestamp">Date entree</string>
+    <string name="patient_weight">Poids</string>
+
 </resources>

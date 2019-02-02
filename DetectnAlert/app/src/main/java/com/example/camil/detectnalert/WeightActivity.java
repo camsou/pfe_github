@@ -84,15 +84,15 @@ public class WeightActivity extends MainActivity  {
                 }
 
                 spinner = (Spinner) findViewById(R.id.patient) ;
-                id_sex = (TextView) findViewById(R.id.id_sex) ;
-                id_name = (TextView) findViewById(R.id.id_name) ;
-                id_firstname = (TextView) findViewById(R.id.id_firstname) ;
+                id_sex = (TextView) findViewById(R.id.id_sex_value) ;
+                id_name = (TextView) findViewById(R.id.id_name_value) ;
+                id_firstname = (TextView) findViewById(R.id.id_firstname_value) ;
                 //id_patient = (TextView) findViewById(R.id.id_patient) ;
-                id_timestamp = (TextView) findViewById(R.id.id_timestamp) ;
-                id_weight = (TextView) findViewById(R.id.id_weight) ;
                 graph = (GraphView) findViewById(R.id.graph);
                 series = new LineGraphSeries();
                 graph.addSeries(series);
+                id_timestamp = (TextView) findViewById(R.id.id_timestamp_value) ;
+                id_weight = (TextView) findViewById(R.id.id_weight_value) ;
 
 
                 /* Fill spinner with patients */
@@ -109,7 +109,14 @@ public class WeightActivity extends MainActivity  {
 
                         String sex;
                         sex = patients_table.get(i).GetPatientSex();
-                        id_sex.setText(sex);
+                        if (sex.equals("h"))
+                        {
+                            id_sex.setText(R.string.sex_h);
+                        }
+                        else
+                        {
+                            id_sex.setText(R.string.sex_f);
+                        }
 
                         String name;
                         name = patients_table.get(i).GetPatientName();
