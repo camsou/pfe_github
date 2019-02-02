@@ -3,18 +3,20 @@ package com.example.camil.detectnalert;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.camil.detectnalert.ViewHolder.graphique;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,17 @@ public class WeightActivity extends MainActivity  {
     TextView id_patient;
     TextView id_timestamp;
     TextView id_weight;
+    GraphView graph;
+    LineGraphSeries series;
 
     // Tables containing data from Firebase Realtime Database
     ArrayList<Patients>     patients_table      = new ArrayList<Patients>();
     ArrayList<RoomPatient>  room_patient_table  = new ArrayList<RoomPatient>();
     ArrayList<Weights>      weights_table       = new ArrayList<Weights>();
+
+    //Table containing data of weight and date
+    ArrayList<graphique>    graphique_table     = new ArrayList<graphique>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +89,9 @@ public class WeightActivity extends MainActivity  {
                 //id_patient = (TextView) findViewById(R.id.id_patient) ;
                 id_timestamp = (TextView) findViewById(R.id.id_timestamp) ;
                 id_weight = (TextView) findViewById(R.id.id_weight) ;
+                graph = (GraphView) findViewById(R.id.graph);
+                series = new LineGraphSeries();
+                graph.addSeries(series);
 
 
                 /* Fill spinner with patients */
@@ -179,6 +190,10 @@ public class WeightActivity extends MainActivity  {
                             areaSnapshot.child("timestamp_weight").getValue(String.class),
                             String.valueOf(areaSnapshot.child("value").getValue())
                     );
+                    /**graphique gra = new graphique(
+                            areaSnapshot.child("value").getValue(),
+                            areaSnapshot.child("timestamp_weight").getValue(String.class)
+                    );**/
                     
                     weights_table.add(wei);
                 }
