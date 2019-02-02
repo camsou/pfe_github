@@ -126,8 +126,8 @@ public class WeightActivity extends MainActivity  {
                         name_first = patients_table.get(i).GetPatientFirstName();
                         id_firstname.setText(name_first);
 
-                        int id;
-                        id = patients_table.get(i).GetPatientID();
+                        int id_patient;
+                        id_patient = patients_table.get(i).GetPatientID();
                         //id_patient.setText(id);
 
                         int timestamp_ehpad;
@@ -142,8 +142,8 @@ public class WeightActivity extends MainActivity  {
                                 + "/" + timestamp_ehpad_string.substring(6, timestamp_ehpad_string.length());
                         id_timestamp.setText(timestamp_ehpad_string);
 
-                        int              card         = matchIdCard(id, room_patient_table);
-                        ArrayList<Float> last_weights = getWeightsInRoom(card, weights_table);
+                        int              id_card         = matchIdCard(id_patient, room_patient_table);
+                        ArrayList<Float> last_weights = getWeightsInRoom(id_card, weights_table);
 
                         if (last_weights.size() != 0)
                         {
