@@ -187,15 +187,16 @@ public class WeightActivity extends MainActivity  {
                     Weights wei = new Weights(
                             String.valueOf(areaSnapshot.child("id_card").getValue()),
                             String.valueOf(areaSnapshot.child("id_weight").getValue()),
-                            areaSnapshot.child("timestamp_weight").getValue(String.class),
-                            String.valueOf(areaSnapshot.child("value").getValue())
+                            areaSnapshot.child("timestamp_weight").getValue().hashCode(),
+                            areaSnapshot.child("value").getValue().hashCode()
                     );
-                    /**graphique gra = new graphique(
-                            areaSnapshot.child("value").getValue(),
-                            areaSnapshot.child("timestamp_weight").getValue(String.class)
-                    );**/
-                    
+                    graphique gra = new graphique(
+                            areaSnapshot.child("value").getValue().hashCode(),
+                            areaSnapshot.child("timestamp_weight").getValue().hashCode()
+                    );
+
                     weights_table.add(wei);
+                    graphique_table.add(gra);
                 }
             }
 
@@ -256,7 +257,7 @@ public class WeightActivity extends MainActivity  {
         {
             if (weights_table.get(i).id_card.equals(id_card))
             {
-                weights_in_room.add(weights_table.get(i).value_weight);
+                weights_in_room.add(String.valueOf(weights_table.get(i).value_weight));
             }
         }
 

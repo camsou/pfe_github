@@ -3,14 +3,14 @@ package com.example.camil.detectnalert;
 public class Weights {
     String id_card;
     String id_weight;
-    String timestamp_weight;
-    String value_weight;
+    int timestamp_weight;
+    int value_weight;
 
     public Weights() {
         //Constructeur
     }
 
-    public Weights(String id_card, String id_weight, String timestamp_weight, String value_weight) {
+    public Weights(String id_card, String id_weight, int timestamp_weight, int value_weight) {
 
         this.id_card = id_card;
         this.id_weight = id_weight;
@@ -26,11 +26,11 @@ public class Weights {
         return id_weight;
     }
 
-    public String GetTimestampWeight() {
+    public int GetTimestampWeight() {
         return timestamp_weight;
     }
 
-    public String GetValueWeight() {
+    public int GetValueWeight() {
         return value_weight;
     }
 }
