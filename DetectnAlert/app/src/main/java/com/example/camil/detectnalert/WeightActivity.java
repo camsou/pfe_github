@@ -9,12 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.camil.detectnalert.ViewHolder.graphique;
+import com.example.camil.detectnalert.ViewHolder.Graphique;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.view.Change;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -43,7 +44,7 @@ public class WeightActivity extends MainActivity  {
     ArrayList<Weights>      weights_table       = new ArrayList<Weights>();
 
     //Table containing data of weight and date
-    ArrayList<graphique>    graphique_table     = new ArrayList<graphique>();
+    ArrayList<Graphique>    graphique_table     = new ArrayList<Graphique>();
 
 
     @Override
