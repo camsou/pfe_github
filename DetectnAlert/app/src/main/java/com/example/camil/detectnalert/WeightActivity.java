@@ -142,12 +142,21 @@ public class WeightActivity extends MainActivity  {
                                 + "/" + timestamp_ehpad_string.substring(6, timestamp_ehpad_string.length());
                         id_timestamp.setText(timestamp_ehpad_string);
 
-                        int              id_card         = matchIdCard(id_patient, room_patient_table);
-                        ArrayList<Float> last_weights = getWeightsInRoom(id_card, weights_table);
+                        int                id_card        = matchIdCard(id_patient, room_patient_table);
+                        ArrayList<Weights> weight_in_room = getWeightsInRoom(id_card, weights_table);
 
-                        if (last_weights.size() != 0)
+                        Weights last_weight = new Weights();
+                        if (weight_in_room.size() != 0)
                         {
-                            String text = last_weights.get(0) + " kg";
+                            for (int w = 0; w < weight_in_room.size(); w++)
+                            {
+                                if (weight_in_room.get(w).GetTimestampWeight() > last_weight.GetTimestampWeight())
+                                {
+                                    last_weight = weight_in_room.get(w);
+                                }
+                            }
+
+                            String text = last_weight.GetValueWeight() + " kg";
                             id_weight.setText(text);
                         }
 
@@ -265,15 +274,15 @@ public class WeightActivity extends MainActivity  {
      * @param weights_table the weight table.
      * @return the weight value, null if error.
      */
-    protected ArrayList<Float> getWeightsInRoom(int id_card, ArrayList<Weights> weights_table)
+    protected ArrayList<Weights> getWeightsInRoom(int id_card, ArrayList<Weights> weights_table)
     {
-        ArrayList<Float> weights_in_room = new ArrayList<>();
+        ArrayList<Weights> weights_in_room = new ArrayList<>();
 
         for (int i = 0; i < weights_table.size(); i++)
         {
             if (weights_table.get(i).GetIdCard() == id_card)
             {
-                weights_in_room.add(weights_table.get(i).GetValueWeight());
+                weights_in_room.add(weights_table.get(i));
             }
         }
 
