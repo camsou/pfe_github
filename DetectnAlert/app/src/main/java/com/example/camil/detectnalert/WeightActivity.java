@@ -17,8 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.view.Change;
 import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,6 +162,18 @@ public class WeightActivity extends MainActivity  {
                             id_weight.setText(text);
                         }
 
+                        // Draw graph
+                        ArrayList<Graphique> graph_in_room = getGraphInRoom(id_card, weights_table);
+                        GraphView            graph         = (GraphView) findViewById(R.id.graph);
+
+                        for (int g = 0; g < weight_in_room.size(); g++)
+                        {
+                            DataPoint data = new DataPoint(graph_in_room.get(g).GetxValue(), graph_in_room.get(g).GetyValue());
+                            series.appendData(data, true, 5);
+                            graph.addSeries(series);
+                        }
+
+
                     }
 
                     @Override
@@ -287,6 +301,42 @@ public class WeightActivity extends MainActivity  {
         }
 
         return weights_in_room;
+    }
+
+    /**
+     * Function that gets a graph made of given patient's weights.
+     * @param id_card the room ID (corresponding to 1 patient).
+     * @param weights_table the patient's weights table.
+     * @return an array of "Graphique" points made of given patient's weights.
+     */
+    protected ArrayList<Graphique> getGraphInRoom(int id_card, ArrayList<Weights> weights_table)
+    {
+        ArrayList<Graphique> graph_in_room         = new ArrayList<>();
+        ArrayList<Graphique> ordered_graph_in_room = new ArrayList<>();
+
+        Graphique graph_point;
+        Graphique last_point = new Graphique(0, 0f);
+
+        for (int i = 0; i < weights_table.size(); i++)
+        {
+            Log.d("WEIGH", weights_table.get(i).GetIdCard() + "" + weights_table.get(i).GetIdWeight() + "" + weights_table.get(i).GetTimestampWeight());
+            if (weights_table.get(i).GetIdCard() == id_card)
+            {
+                Log.d("GRAPH", "i: " + i);
+                graph_point = new Graphique(
+                        weights_table.get(i).GetTimestampWeight(),
+                        weights_table.get(i).GetValueWeight()
+                );
+
+                graph_in_room.add(graph_point);
+            }
+        }
+        for (int j = 0; j < graph_in_room.size(); j++)
+        {
+            Log.d("GRAPH", graph_in_room.get(j).GetxValue() + " " + graph_in_room.get(j).GetyValue());
+        }
+
+        return graph_in_room;
     }
 }
 
