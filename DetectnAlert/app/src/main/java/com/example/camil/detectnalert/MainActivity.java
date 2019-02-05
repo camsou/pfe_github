@@ -25,6 +25,7 @@ import android.widget.TextView;
 //Authentification
 import com.example.camil.detectnalert.fragment.MyPostsFragment;
 import com.example.camil.detectnalert.fragment.RecentPostsFragment;
+import com.example.camil.detectnalert.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity
      */
 
     private TextView mStatusTextView;
+    private TextView mProfession;
     private NavigationView navigationView;
     private View           hView;
     private FragmentPagerAdapter mPagerAdapter;
@@ -62,8 +66,15 @@ public class MainActivity extends BaseActivity
 
     private Button mNewAlertButton;
 
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+    FirebaseHelper helper;
+
+    String username;
+
+    // Tables containing data from Firebase Realtime Database
+    ArrayList<User> users_table = new ArrayList<User>();
     // [START declare_auth]
-    private FirebaseAuth mAuth;
     // [END declare_auth]
 
 
@@ -96,6 +107,44 @@ public class MainActivity extends BaseActivity
                 return mFragmentNames[position];
             }
         };
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        helper = new FirebaseHelper(mDatabase);
+
+        //------------------------------------------------------------------------------
+        // Update patients
+        //------------------------------------------------------------------------------
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
+                //Get Users from Firebase Realtime Database
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+
+                    User user = new User(
+                            areaSnapshot.child("username").getValue(String.class),
+                            areaSnapshot.child("email").getValue(String.class),
+                            areaSnapshot.child("profession").getValue(String.class),
+                            areaSnapshot.child("patient").getValue(String.class),
+                            areaSnapshot.child("etage").getValue(String.class)
+                    );
+                    Log.d(TAG, user.GetEmail() + "");
+                    Log.d(TAG, user.GetUsername() + "");
+                    Log.d(TAG, user.GetProfession() + "");
+                    Log.d(TAG, user.GetPatient() + "");
+                    Log.d(TAG, user.GetEtage() + "");
+                    users_table.add(user);
+                }
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                updateUI(currentUser);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){
+
+            }
+        });
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = findViewById(R.id.container);
@@ -109,16 +158,6 @@ public class MainActivity extends BaseActivity
         // [END initialize_auth]
     }
 
-    // [START on_start_check_user]
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-    // [END on_start_check_user]
-
     /** Mise à jour statut utilisateur */
 
     private void updateUI(FirebaseUser user) {
@@ -129,10 +168,19 @@ public class MainActivity extends BaseActivity
 
             // Getting the information inside the header
             mStatusTextView = (TextView) hView.findViewById(R.id.email);
+            mProfession = (TextView) findViewById(R.id.user);
 
             // Set information
             String username = usernameFromEmail(user.getEmail());
             mStatusTextView.setText(username);
+            for (int i = 0; i < users_table.size(); i++)
+            {
+                if (users_table.get(i).GetUsername().equals(username))
+                {
+                    mProfession.setText(users_table.get(i).GetProfession());
+                }
+            }
+
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
