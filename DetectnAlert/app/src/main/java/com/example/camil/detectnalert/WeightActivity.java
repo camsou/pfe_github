@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.camil.detectnalert.ViewHolder.Graphique;
 import com.google.firebase.database.DataSnapshot;
@@ -15,15 +16,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.view.Change;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class WeightActivity extends MainActivity  {
 
@@ -37,8 +41,10 @@ public class WeightActivity extends MainActivity  {
     TextView id_patient;
     TextView id_timestamp;
     TextView id_weight;
+    TextView id_timestamp_last_weight;
     GraphView graph;
     LineGraphSeries series;
+    final List<String> patients = new ArrayList<String>();
 
     // Tables containing data from Firebase Realtime Database
     ArrayList<Patients>     patients_table      = new ArrayList<Patients>();
@@ -46,7 +52,7 @@ public class WeightActivity extends MainActivity  {
     ArrayList<Weights>      weights_table       = new ArrayList<Weights>();
 
     //Table containing data of weight and date
-    ArrayList<Graphique>    graphique_table     = new ArrayList<Graphique>();
+    ArrayList<Graphique>    graph_in_room     = new ArrayList<Graphique>();
 
 
     @Override
@@ -55,8 +61,32 @@ public class WeightActivity extends MainActivity  {
         setContentView(R.layout.activity_weight);
 
 
+        // Database elements
         db=FirebaseDatabase.getInstance().getReference();
         helper=new FirebaseHelper(db);
+
+        // Layout elements
+        spinner                  = (Spinner)  findViewById(R.id.patient) ;
+        id_sex                   = (TextView) findViewById(R.id.id_sex_value) ;
+        id_name                  = (TextView) findViewById(R.id.id_name_value) ;
+        id_firstname             = (TextView) findViewById(R.id.id_firstname_value) ;
+        id_timestamp             = (TextView) findViewById(R.id.id_timestamp_value) ;
+        id_weight                = (TextView) findViewById(R.id.id_weight_value) ;
+        id_timestamp_last_weight = (TextView) findViewById(R.id.id_timestamp_last_weight_value) ;
+
+        // Graph elements
+        graph = (GraphView) findViewById(R.id.graph);
+        graph.setTitle("Historique pesées");
+        graph.getGridLabelRenderer().setGridColor(0xFFDDDDDD);
+        graph.getGridLabelRenderer().setVerticalLabelsVisible(true);
+        graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
+
+        series = new LineGraphSeries();
+        series.setColor(0xFF58EEF2);
+        series.setBackgroundColor(0x33A5E6E8);
+        series.setDrawBackground(true);
+        series.setDrawDataPoints(true);
+        series.setThickness(2);
 
         //------------------------------------------------------------------------------
         // Update patients
@@ -64,7 +94,6 @@ public class WeightActivity extends MainActivity  {
         db.child("patients").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                final List<String> patients = new ArrayList<String>();
 
                 /* Get Patients from Firebase Realtime Database */
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
@@ -85,16 +114,7 @@ public class WeightActivity extends MainActivity  {
                     patients_table.add(pat);
                 }
 
-                spinner = (Spinner) findViewById(R.id.patient) ;
-                id_sex = (TextView) findViewById(R.id.id_sex_value) ;
-                id_name = (TextView) findViewById(R.id.id_name_value) ;
-                id_firstname = (TextView) findViewById(R.id.id_firstname_value) ;
-                //id_patient = (TextView) findViewById(R.id.id_patient) ;
-                graph = (GraphView) findViewById(R.id.graph);
-                series = new LineGraphSeries();
-                graph.addSeries(series);
-                id_timestamp = (TextView) findViewById(R.id.id_timestamp_value) ;
-                id_weight = (TextView) findViewById(R.id.id_weight_value) ;
+
 
 
                 /* Fill spinner with patients */
@@ -105,75 +125,7 @@ public class WeightActivity extends MainActivity  {
 
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        String selected = spinner.getItemAtPosition(i).toString();
-
-
-                        String sex;
-                        sex = patients_table.get(i).GetPatientSex();
-                        if (sex.equals("h"))
-                        {
-                            id_sex.setText(R.string.sex_h);
-                        }
-                        else
-                        {
-                            id_sex.setText(R.string.sex_f);
-                        }
-
-                        String name;
-                        name = patients_table.get(i).GetPatientName();
-                        id_name.setText(name);
-
-                        String name_first;
-                        name_first = patients_table.get(i).GetPatientFirstName();
-                        id_firstname.setText(name_first);
-
-                        int id_patient;
-                        id_patient = patients_table.get(i).GetPatientID();
-                        //id_patient.setText(id);
-
-                        int timestamp_ehpad;
-                        timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
-
-                        // Change timestamp to string just for display
-                        // (int) 20192305 -> (String) "2019/23/05"
-                        String timestamp_ehpad_string = String.valueOf(timestamp_ehpad);
-                        timestamp_ehpad_string =
-                                timestamp_ehpad_string.substring(0, 4)
-                                + "/" + timestamp_ehpad_string.substring(4, 6)
-                                + "/" + timestamp_ehpad_string.substring(6, timestamp_ehpad_string.length());
-                        id_timestamp.setText(timestamp_ehpad_string);
-
-                        int                id_card        = matchIdCard(id_patient, room_patient_table);
-                        ArrayList<Weights> weight_in_room = getWeightsInRoom(id_card, weights_table);
-
-                        Weights last_weight = new Weights();
-                        if (weight_in_room.size() != 0)
-                        {
-                            for (int w = 0; w < weight_in_room.size(); w++)
-                            {
-                                if (weight_in_room.get(w).GetTimestampWeight() > last_weight.GetTimestampWeight())
-                                {
-                                    last_weight = weight_in_room.get(w);
-                                }
-                            }
-
-                            String text = last_weight.GetValueWeight() + " kg";
-                            id_weight.setText(text);
-                        }
-
-                        // Draw graph
-                        ArrayList<Graphique> graph_in_room = getGraphInRoom(id_card, weights_table);
-                        GraphView            graph         = (GraphView) findViewById(R.id.graph);
-
-                        for (int g = 0; g < weight_in_room.size(); g++)
-                        {
-                            DataPoint data = new DataPoint(graph_in_room.get(g).GetxValue(), graph_in_room.get(g).GetyValue());
-                            series.appendData(data, true, 5);
-                            graph.addSeries(series);
-                        }
-
-
+                        updateView(i);
                     }
 
                     @Override
@@ -218,9 +170,11 @@ public class WeightActivity extends MainActivity  {
         //------------------------------------------------------------------------------
         // Update weights
         //------------------------------------------------------------------------------
-        db.child("weights").addValueEventListener(new ValueEventListener() {
+        db.child("weights").orderByChild("id_weight").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Re-initialize weights_table before filling it.
+                weights_table = new ArrayList<Weights>();
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
                     Weights wei = new Weights(
@@ -229,13 +183,8 @@ public class WeightActivity extends MainActivity  {
                             Integer.parseInt(String.valueOf(areaSnapshot.child("timestamp_weight").getValue())),
                             Float.parseFloat(String.valueOf(areaSnapshot.child("value").getValue()))
                     );
-                    Graphique gra = new Graphique(
-                            Integer.parseInt(String.valueOf(areaSnapshot.child("timestamp_weight").getValue())),
-                            Float.parseFloat(String.valueOf(areaSnapshot.child("value").getValue()))
-                    );
 
                     weights_table.add(wei);
-                    graphique_table.add(gra);
                 }
             }
 
@@ -245,21 +194,8 @@ public class WeightActivity extends MainActivity  {
             }
         });
 
-        //mAlertButton= (Button) findViewById(R.id.alertButton);
-
-        /*
-        mAlertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // User clicked the button
-                Intent HistoricIntent = new Intent(AlertActivity.this, HistoricActivity.class);
-                startActivity(HistoricIntent);
-
-            }
-
-        });
-        */
         }
+
 
     /**
      * Function that matches the patient ID with the room ID.
@@ -285,8 +221,8 @@ public class WeightActivity extends MainActivity  {
      * Function that gets weight value in given room.
      *
      * @param id_card the room ID.
-     * @param weights_table the weight table.
-     * @return the weight value, null if error.
+     * @param weights_table the patient's weights table.
+     * @return an array of given patient's weights.
      */
     protected ArrayList<Weights> getWeightsInRoom(int id_card, ArrayList<Weights> weights_table)
     {
@@ -319,24 +255,115 @@ public class WeightActivity extends MainActivity  {
 
         for (int i = 0; i < weights_table.size(); i++)
         {
-            Log.d("WEIGH", weights_table.get(i).GetIdCard() + "" + weights_table.get(i).GetIdWeight() + "" + weights_table.get(i).GetTimestampWeight());
             if (weights_table.get(i).GetIdCard() == id_card)
             {
-                Log.d("GRAPH", "i: " + i);
                 graph_point = new Graphique(
                         weights_table.get(i).GetTimestampWeight(),
                         weights_table.get(i).GetValueWeight()
                 );
-
                 graph_in_room.add(graph_point);
             }
         }
-        for (int j = 0; j < graph_in_room.size(); j++)
-        {
-            Log.d("GRAPH", graph_in_room.get(j).GetxValue() + " " + graph_in_room.get(j).GetyValue());
-        }
 
         return graph_in_room;
+    }
+
+    /**
+     * Update page view (patient's data and graph).
+     * @param i index of patient selected in spinner.
+     */
+    protected void updateView(int i)
+    {
+        String selected = spinner.getItemAtPosition(i).toString();
+
+
+        String sex;
+        sex = patients_table.get(i).GetPatientSex();
+        if (sex.equals("h"))
+        {
+            id_sex.setText(R.string.sex_h);
+        }
+        else
+        {
+            id_sex.setText(R.string.sex_f);
+        }
+
+        String name;
+        name = patients_table.get(i).GetPatientName();
+        id_name.setText(name);
+
+        String name_first;
+        name_first = patients_table.get(i).GetPatientFirstName();
+        id_firstname.setText(name_first);
+
+        int id_patient;
+        id_patient = patients_table.get(i).GetPatientID();
+        //id_patient.setText(id);
+
+        int timestamp_ehpad;
+        timestamp_ehpad = patients_table.get(i).GetPatientTimestamp();
+
+        // Change timestamp to string just for display
+        // (int) 20192305 -> (String) "2019/23/05"
+        String timestamp_ehpad_string = String.valueOf(timestamp_ehpad);
+        timestamp_ehpad_string =
+                timestamp_ehpad_string.substring(0, 4)
+                        + "/" + timestamp_ehpad_string.substring(4, 6)
+                        + "/" + timestamp_ehpad_string.substring(6, timestamp_ehpad_string.length());
+        id_timestamp.setText(timestamp_ehpad_string);
+
+        int                id_card        = matchIdCard(id_patient, room_patient_table);
+        ArrayList<Weights> weight_in_room = getWeightsInRoom(id_card, weights_table);
+
+        // Display last weight and its timestamp on screen
+        Weights last_weight = new Weights();
+        if (weight_in_room.size() != 0)
+        {
+            for (int w = 0; w < weight_in_room.size(); w++)
+            {
+                if (weight_in_room.get(w).GetTimestampWeight() > last_weight.GetTimestampWeight())
+                {
+                    last_weight = weight_in_room.get(w);
+                }
+            }
+
+            String text = last_weight.GetValueWeight() + " kg";
+            String timestamp_last_weight = String.valueOf(last_weight.GetTimestampWeight());
+            timestamp_last_weight =
+                    timestamp_last_weight.substring(0, 4)
+                            + "/" + timestamp_last_weight.substring(4, 6)
+                            + "/" + timestamp_last_weight.substring(6, timestamp_last_weight.length());
+            id_weight.setText(text);
+            id_timestamp_last_weight.setText(timestamp_last_weight);
+        }
+
+        // Draw graph
+        graph_in_room = getGraphInRoom(id_card, weights_table);
+        DataPoint datapoint = null;
+        series.resetData(new DataPoint[] {});
+
+        for (int g = 0; g < graph_in_room.size(); g++)
+        {
+            datapoint = new DataPoint(Double.valueOf(graph_in_room.get(g).GetxValue()), Double.valueOf(graph_in_room.get(g).GetyValue()));
+            series.appendData(datapoint, false, 5);
+        }
+
+        graph.removeAllSeries();
+        graph.addSeries(series);
+
+        // Information about specified weight on Tap
+        series.setOnDataPointTapListener(new OnDataPointTapListener() {
+            @Override
+            public void onTap(Series series, DataPointInterface dataPoint) {
+                Toast.makeText(
+                        graph.getContext(),
+                        Double.valueOf(dataPoint.getY()).floatValue() + " le "
+                        + String.valueOf(Double.valueOf(dataPoint.getX()).intValue()).substring(0, 4)
+                        + "/" + String.valueOf(Double.valueOf(dataPoint.getX()).intValue()).substring(4, 6)
+                        + "/" + String.valueOf(Double.valueOf(dataPoint.getX()).intValue()).substring(6, String.valueOf(Double.valueOf(dataPoint.getX()).intValue()).length()), Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 }
 
