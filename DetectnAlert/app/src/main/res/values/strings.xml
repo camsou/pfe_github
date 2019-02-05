@@ -73,4 +73,7 @@
     <string name="patient_weight">Poids</string>
     <string name="patient_timestamp_last_weight">Date dernière pesée</string>
 
+    <!-- Strings related to SplashScreen -->
+    <string name="title_activity_splash">SplashActivity</string>
+
 </resources>
