@@ -1,6 +1,7 @@
 package com.example.camil.detectnalert;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -13,12 +14,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MyAccountActivity extends BaseActivity {
 
     private static final String TAG = "MyAccountActivity";
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+    FirebaseHelper helper;
+
+    String username;
+
+    // Tables containing data from Firebase Realtime Database
+    ArrayList<User> users_table = new ArrayList<User>();
 
 
     /* Creation de la page */
@@ -29,34 +39,82 @@ public class MyAccountActivity extends BaseActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        helper = new FirebaseHelper(mDatabase);
+
+        //------------------------------------------------------------------------------
+        // Update patients
+        //------------------------------------------------------------------------------
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+
+                //Get Users from Firebase Realtime Database
+                for (DataSnapshot areaSnapshot : dataSnapshot.getChildren()) {
+
+                    User user = new User(
+                            areaSnapshot.child("username").getValue(String.class),
+                            areaSnapshot.child("email").getValue(String.class),
+                            areaSnapshot.child("profession").getValue(String.class),
+                            areaSnapshot.child("patient").getValue(String.class),
+                            areaSnapshot.child("etage").getValue(String.class)
+                    );
+                    Log.d(TAG, user.GetEmail() + "");
+                    Log.d(TAG, user.GetUsername() + "");
+                    Log.d(TAG, user.GetProfession() + "");
+                    Log.d(TAG, user.GetPatient() + "");
+                    Log.d(TAG, user.GetEtage() + "");
+                    users_table.add(user);
+                }
+
+                mPatient = (TextView) findViewById(R.id.nb_patient);
+                mEtage = (TextView) findViewById(R.id.etage);
+
+                String patient;
+                String etage;
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                updateUI(currentUser);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError){
+
+            }
+        });
     }
 
     // [START on_start_check_user]
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-    }
+    }*/
     // [END on_start_check_user]
 
     private TextView mStatusTextView;
+    private TextView mProfession;
     private TextView mPatient;
     private TextView mEtage;
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-
             // Getting the information
             mStatusTextView = (TextView) findViewById(R.id.email);
+            mProfession = (TextView) findViewById(R.id.user);
 
             // Set information
-            String username = usernameFromEmail(user.getEmail());
+            username = usernameFromEmail(user.getEmail());
             mStatusTextView.setText(username);
-            //String patient =
-            //mPatient.setText(patient);
-            //mEtage.setText(etage);
+            for (int i = 0; i < users_table.size(); i++)
+            {
+                if (users_table.get(i).GetUsername().equals(username))
+                {
+                    mPatient.setText(users_table.get(i).GetPatient());
+                    mEtage.setText(users_table.get(i).GetEtage());
+                    mProfession.setText(users_table.get(i).GetProfession());
+                }
+            }
 
         } else {
             mStatusTextView.setText(R.string.signed_out);
@@ -70,21 +128,5 @@ public class MyAccountActivity extends BaseActivity {
             return email;
         }
     }
-
-    // Read from the database
-    ValueEventListener userListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            // This method is called once with the initial value and again
-            // whenever data at this location is updated.
-            User user = dataSnapshot.getValue(User.class);
-        }
-
-        @Override
-        public void onCancelled(DatabaseError error) {
-            // Failed to read value
-            Log.w(TAG, "loadUser:onCancelled", error.toException());
-        }
-    };
 }
 
