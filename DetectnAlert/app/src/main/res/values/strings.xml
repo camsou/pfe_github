@@ -76,4 +76,10 @@
     <!-- Strings related to SplashScreen -->
     <string name="title_activity_splash">SplashActivity</string>
 
+    <!-- Strings related to MyAccount -->
+    <string name="nb_patient">Patients : %s</string>
+    <string name="etage2">Etage : %s</string>
+
+
+
 </resources>

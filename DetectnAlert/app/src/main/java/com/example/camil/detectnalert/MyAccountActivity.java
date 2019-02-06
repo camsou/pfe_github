@@ -110,8 +110,8 @@ public class MyAccountActivity extends BaseActivity {
             {
                 if (users_table.get(i).GetUsername().equals(username))
                 {
-                    mPatient.setText(users_table.get(i).GetPatient());
-                    mEtage.setText(users_table.get(i).GetEtage());
+                    mPatient.setText(getString(R.string.nb_patient,users_table.get(i).GetPatient()));
+                    mEtage.setText(getString(R.string.etage2, users_table.get(i).GetEtage()));
                     mProfession.setText(users_table.get(i).GetProfession());
                 }
             }
