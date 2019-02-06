@@ -8,7 +8,7 @@
     <!-- Includes the app_bar_my_account layout to handle the normal content
          (without the drawer) -->
     <include
-        layout="@layout/app_bar_my_account"
+        layout="@layout/app_bar_weight"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

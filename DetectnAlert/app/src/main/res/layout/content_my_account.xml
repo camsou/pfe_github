@@ -27,7 +27,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Arthur de Witt"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
@@ -54,7 +53,6 @@
                         android:id="@+id/etage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1er étage"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/white"/>
@@ -70,7 +68,6 @@
                         android:id="@+id/nb_patient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="7 Patients"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:textColor="@color/white"

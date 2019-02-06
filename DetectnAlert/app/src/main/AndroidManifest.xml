@@ -12,16 +12,20 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".LoginActivity"
+            android:name=".SplashActivity"
             android:label="@string/app_name"
-            android:windowSoftInputMode="stateHidden">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".BaseActivity"/>
+            android:name=".LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".BaseActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
@@ -48,6 +52,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="OPEN_ACTIVITY_1" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -55,11 +60,17 @@
             android:name=".HistoricActivity"
             android:label="@string/title_activity_historic"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <service android:name=".Notification">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".WeightActivity"
+            android:label="@string/title_activity_weights"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

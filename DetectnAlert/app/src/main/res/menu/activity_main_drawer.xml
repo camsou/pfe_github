@@ -10,6 +10,12 @@
             android:icon="@drawable/clock"
             android:title="@string/historique_alertes" />
 
+        <!-- Poids et stats -->
+        <item
+            android:id="@+id/nav_weights"
+            android:icon="@drawable/stats"
+            android:title="@string/weights" />
+
         <!-- Mon compte -->
         <item
             android:id="@+id/nav_account"

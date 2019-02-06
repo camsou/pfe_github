@@ -24,6 +24,30 @@ public class User {
         this.etage = etage;
     }
 
+    public String GetUsername()
+    {
+        return username;
+    }
+
+    public String GetEmail()
+    {
+        return email;
+    }
+
+    public String GetPatient()
+    {
+        return patient;
+    }
+
+    public String GetProfession()
+    {
+        return profession;
+    }
+
+    public String GetEtage()
+    {
+        return etage;
+    }
 
 }
 // [END blog_user_class]
