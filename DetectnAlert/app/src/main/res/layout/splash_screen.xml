@@ -14,7 +14,7 @@
             android:layout_width="165dp"
             android:layout_height="260dp"
             android:layout_gravity="center"
-            android:src="@drawable/touki"
+            android:src="@drawable/logo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
