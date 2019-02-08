@@ -15,7 +15,7 @@ import board
 import busio
 import adafruit_adxl34x
 import firebase_admin
-from   adxl345_py3      import ADXL345
+#from   adxl345_py3      import ADXL345
 from   threading        import Thread
 from   firebase_utils   import firebase_connect
 from   firebase_utils   import send_notification
@@ -45,7 +45,7 @@ wifi_ip = ["172.20","192.168"] #Zone1, Zone2
 minute = 0
 
 def format_time(second):
-    minute = second/60
+	minute = second/60
     second %= 60
     return "%d:%d" %(minute, second)
 
@@ -92,7 +92,6 @@ def lost():
                     t1 = time.time() + 11
                     i+=1
                     time.sleep(4)
-
         else :
             time.sleep(4)
 
@@ -111,23 +110,29 @@ def chute():
 
         # Create an accelerometer object
         accelerometer = adafruit_adxl34x.ADXL345(i2c)
-        accelerometer.enable_freefall_detection(time=70)
+        # accelerometer.enable_freefall_detection(time=70)
         # alternatively you can specify attributes when you enable freefall detection for more control:
         # accelerometer.enable_freefall_detection(threshold=10,time=25)
 
         while True:
-           #print("%f %f %f"%accelerometer.acceleration)
-
-           #print("Dropped: %s"%accelerometer.events["freefall"])
-           if accelerometer.events["freefall"] == True:
+           print("%f %f %f"%accelerometer.acceleration)
+           time.sleep(0.5)
+           if (abs(accelerometer.acceleration[0])>19 and abs(accelerometer.acceleration[1])>19) or (abs(accelerometer.acceleration[0])>19 and abs(accelerometer.acceleration[2])>19) or (abs(accelerometer.$
                 t1 = time.time()
+                time.sleep(5)
                 for wifi in wifi_ip:
                     if ip[:3] == wifi[:3]:
-                        print("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
-                        send_notification("Monsieur Dupont est tombe", "Il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
-                        time.sleep(5)
+                        while (time.time()-t1<10):
+                            if (abs(accelerometer.acceleration[0])<12 and abs(accelerometer.acceleration[1])<12 and abs(accelerometer.acceleration[2])<12):
+                                bool = 1
+                            else :
+                                bool = 0
+                        if (bool == 1):
+                            print("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
+                            send_notification("Monsieur Dupont est tombe", "Il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
+                            time.sleep(5)
                 # Send remember every 5 seconds
-                while (firebase.get('/Notification/Notification_%d/Etat' %id_rasp, None) == 1):
+                while (firebase.get('/Notification/Notification_%d/Etat' %id_rasp, None) == 1) and (bool == 1):
                     print("Monsieur Dupont est tombe il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
                     send_notification("Monsieur Dupont est tombe", "Il y a %s min en zone %d" %(format_time(time.time()-t1),wifi_ip.index(wifi)+1))
                     time.sleep(5)
@@ -135,3 +140,4 @@ def chute():
 
 chute()
 thread1.join()
+
